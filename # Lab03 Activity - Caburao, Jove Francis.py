@@ -25,28 +25,59 @@ print("Spaces:", space_count)
 print("Other characters:", other_count)
 
 # This part is printing all words in ascending order
-words = []
+words = ""
 current_word = ""
 for char in input_string:
     if char == ' ':
         if current_word != "":
-            words.append(current_word)
+            words = words + current_word + " "
             current_word = ""
     else:
         current_word = current_word + char
 if current_word != "":
-    words.append(current_word)
+    words = words + current_word + " "
+
+# This Extracts words into a list for sorting
+word_list = []
+temp_word = ""
+for char in words:
+    if char == ' ':
+        if temp_word != "":
+            word_list = word_list + [temp_word]
+            temp_word = ""
+    else:
+        temp_word = temp_word + char
+
+# Bubble sort for ascending order
+for i in range(len(word_list)):
+    for j in range(len(word_list) - 1):
+        if word_list[j] > word_list[j + 1]:
+            temp = word_list[j]
+            word_list[j] = word_list[j + 1]
+            word_list[j + 1] = temp
 
 print("Words in ascending order:")
-for word in words:
+for word in word_list:
     print(word)
 print()
-# Display all words in reverse without changing position
+
+# This Display all words in reverse without changing position
 print("Words in reverse:")
-for word in words:
+current_word = ""
+for char in input_string:
+    if char == ' ':
+        if current_word != "":
+            reversed_word = ""
+            for i in range(len(current_word)):
+                reversed_word = current_word[i] + reversed_word
+            print(reversed_word, end=" ")
+            current_word = ""
+    else:
+        current_word = current_word + char
+if current_word != "":
     reversed_word = ""
-    for i in range(len(word)):
-        reversed_word = word[i] + reversed_word
+    for i in range(len(current_word)):
+        reversed_word = current_word[i] + reversed_word
     print(reversed_word, end=" ")
 print()
 
